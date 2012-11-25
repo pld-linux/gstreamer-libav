@@ -11,37 +11,44 @@
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.0.2
+Version:	1.0.3
 Release:	1
-# the libav plugin is LGPL, the postproc plugin is GPL
-License:	GPL v2+ and LGPL v2+
+License:	LGPL v2+ (gst part), GPL v2+ (some libav parts)
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	b932d386711a1b14d08c3b7d3021934b
+# Source0-md5:	1cef1179e7b3acff4ce00ff5e81bd7a9
 URL:		http://gstreamer.net/
-BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake >= 1:1.10
+BuildRequires:	autoconf >= 2.62
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	bzip2-devel
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gst_req_ver}
-BuildRequires:	gtk-doc >= 1.3
+BuildRequires:	gtk-doc >= 1.12
 BuildRequires:	libtool
-BuildRequires:	orc-devel >= 0.4.6
+BuildRequires:	orc-devel >= 0.4.16
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2.1
 BuildRequires:	rpmbuild(macros) >= 1.470
 %if %{with system_libav}
-# libavformat,libavcodec,libavutil,libpostproc,libswscale needed
-BuildRequires:	libav-devel
+# libavformat,libavcodec,libavutil,libswscale needed
+BuildRequires:	libav-devel >= 0.8.4
 %else
-# TODO: fill the rest of libav dependencies used here
+# libav dependencies
+BuildRequires:	SDL-devel
+BuildRequires:	zlib-devel
+%ifarch %{ix86} %{x8664}
+BuildRequires:	yasm
+%endif
 %if %{with vdpau}
 BuildRequires:	libvdpau-devel
 BuildRequires:	xorg-lib-libXvMC-devel
 %endif
 %endif
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	gstreamer-plugins-base >= %{gst_req_ver}
-Requires:	orc >= 0.4.6
+%{?with_system_libav:Requires:	libav >= 0.8.4}
+Requires:	orc >= 0.4.16
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -82,7 +89,9 @@ najpopularniejsze formaty multimedialne.
 	%{?with_vdpau:--with-libav-extra-configure="--enable-vdpau"} \
 	--disable-silent-rules \
 	--disable-static
-%{__make}
+# V=1 is for libav (--disable-silent-rules affects only main gst-libav sources)
+%{__make} \
+	V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
