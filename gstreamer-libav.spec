@@ -49,6 +49,7 @@ BuildRequires:	xz
 Requires:	gstreamer-plugins-base >= %{gst_req_ver}
 %{?with_system_libav:Requires:	libav >= 0.8.4}
 Requires:	orc >= 0.4.16
+Obsoletes:	gstreamer-ffmpeg
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
