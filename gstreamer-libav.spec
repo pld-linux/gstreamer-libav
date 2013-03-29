@@ -11,12 +11,12 @@
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.0.5
+Version:	1.0.6
 Release:	1
 License:	LGPL v2+ (gst part), GPL v2+ (some libav parts)
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	00011aa062ce734ba86da499f800269e
+# Source0-md5:	07e5399c44346a95aafc1d4533125774
 URL:		http://gstreamer.net/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
@@ -31,7 +31,7 @@ BuildRequires:	python >= 2.1
 BuildRequires:	rpmbuild(macros) >= 1.470
 %if %{with system_libav}
 # libavformat,libavcodec,libavutil,libswscale needed
-BuildRequires:	libav-devel >= 0.8.4
+BuildRequires:	libav-devel >= 0.8.5
 %else
 # libav dependencies
 BuildRequires:	SDL-devel
@@ -47,7 +47,7 @@ BuildRequires:	xorg-lib-libXvMC-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	gstreamer-plugins-base >= %{gst_req_ver}
-%{?with_system_libav:Requires:	libav >= 0.8.4}
+%{?with_system_libav:Requires:	libav >= 0.8.5}
 Requires:	orc >= 0.4.16
 Obsoletes:	gstreamer-ffmpeg
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
