@@ -5,18 +5,19 @@
 
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
-%define		gst_req_ver	1.0.0
+%define		gst_req_ver	1.2.0
+%define		libav_ver	9.9
 
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.0.10
+Version:	1.2.0
 Release:	1
 License:	LGPL v2+ (gst part), GPL v2+ (some libav parts)
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	715564cdb735dad75b0e770e044488e0
+# Source0-md5:	382bc5a99d22a4fbf8e971c42bb72c01
 URL:		http://gstreamer.net/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
@@ -31,7 +32,7 @@ BuildRequires:	python >= 2.1
 BuildRequires:	rpmbuild(macros) >= 1.470
 %if %{with system_libav}
 # libavformat,libavcodec,libavutil,libswscale needed
-BuildRequires:	libav-devel >= 0.8.8
+BuildRequires:	libav-devel >= %{libav_ver}
 %else
 # libav dependencies
 BuildRequires:	SDL-devel
@@ -47,7 +48,7 @@ BuildRequires:	xorg-lib-libXvMC-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	gstreamer-plugins-base >= %{gst_req_ver}
-%{?with_system_libav:Requires:	libav >= 0.8.8}
+%{?with_system_libav:Requires:	libav >= %{libav_ver}}
 Requires:	orc >= 0.4.16
 Obsoletes:	gstreamer-ffmpeg
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -109,4 +110,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgstlibav.so
-%attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgstavscale.so
+# disabled in (upstream) 1.2.0 until someone fixes it
+#%attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgstavscale.so
