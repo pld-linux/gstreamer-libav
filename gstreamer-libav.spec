@@ -6,6 +6,7 @@
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
 %define		gst_req_ver	1.2.0
+%define		gstpb_req_ver	1.2.2
 %define		libav_ver	9.10
 
 %include	/usr/lib/rpm/macros.gstreamer
@@ -23,7 +24,7 @@ BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	bzip2-devel
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gstreamer-plugins-base-devel >= %{gst_req_ver}
+BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
 BuildRequires:	gtk-doc >= 1.12
 BuildRequires:	libtool
 BuildRequires:	orc-devel >= 0.4.16
@@ -47,7 +48,8 @@ BuildRequires:	xorg-lib-libXvMC-devel
 %endif
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires:	gstreamer-plugins-base >= %{gst_req_ver}
+Requires:	gstreamer >= %{gst_req_ver}
+Requires:	gstreamer-plugins-base >= %{gstpb_req_ver}
 %{?with_system_libav:Requires:	libav >= %{libav_ver}}
 Requires:	orc >= 0.4.16
 Obsoletes:	gstreamer-ffmpeg
