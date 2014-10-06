@@ -8,7 +8,7 @@
 %define		gst_major_ver   1.0
 %define		gst_req_ver	1.4.0
 %define		gstpb_req_ver	1.4.0
-%define		libav_ver	10.4
+%define		libav_ver	10.5
 %define		ffmpeg_ver	2.2
 
 %if %{with system_ffmpeg}
