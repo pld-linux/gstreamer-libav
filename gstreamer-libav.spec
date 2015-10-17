@@ -1,48 +1,47 @@
 #
 # Conditional build:
+%bcond_without	gpl		# GPL licensed components
 %bcond_without	vdpau		# build libav without VDPAU support
-%bcond_with	system_libav	# system libav (note: upstream does not accept bugs with system libav)
-%bcond_with	system_ffmpeg	# system ffmpeg instead of libav (unadvised, only some ffmpeg versions are compatible)
+%bcond_with	system_ffmpeg	# system ffmpeg (note: upstream does not accept bugs with system ffmpeg)
 
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
-%define		gst_req_ver	1.4.0
-%define		gstpb_req_ver	1.4.0
-%define		libav_ver	10.5
-%define		ffmpeg_ver	2.2
+%define		gst_req_ver	1.6.0
+%define		gstpb_req_ver	1.6.0
+%define		ffmpeg_ver	2.8
 
-%if %{with system_ffmpeg}
-%define		with_system_libav	1
-%endif
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.4.5
+Version:	1.6.0
 Release:	1
-License:	LGPL v2+ (gst part), GPL v2+ (some libav parts)
+%if %{with gpl}
+License:	GPL v2+
+%else
+License:	LGPL v2+
+%endif
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	f4922a46adbcbe7bd01331ff5dc7979d
+# Source0-md5:	eda67328be0878bb73449c29ca55baf8
 URL:		http://gstreamer.net/
-BuildRequires:	autoconf >= 2.62
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	autoconf >= 2.69
+BuildRequires:	automake >= 1:1.14
 BuildRequires:	bzip2-devel
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
 BuildRequires:	gtk-doc >= 1.12
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	orc-devel >= 0.4.16
-BuildRequires:	pkgconfig
+BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python >= 2.1
 BuildRequires:	rpmbuild(macros) >= 1.470
-%if %{with system_libav}
-# libavformat,libavcodec,libavutil,libswscale needed
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+BuildRequires:	xz-devel
 %if %{with system_ffmpeg}
+# libavformat,libavcodec,libavutil,libswscale needed
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
-%else
-BuildRequires:	libav-devel >= %{libav_ver}
-%endif
 %else
 # libav dependencies
 BuildRequires:	SDL-devel
@@ -55,19 +54,14 @@ BuildRequires:	libvdpau-devel
 BuildRequires:	xorg-lib-libXvMC-devel
 %endif
 %endif
-BuildRequires:	tar >= 1:1.22
-BuildRequires:	xz
 Requires:	gstreamer >= %{gst_req_ver}
 Requires:	gstreamer-plugins-base >= %{gstpb_req_ver}
-%if %{with system_libav}
 %if %{with system_ffmpeg}
-BuildRequires:	ffmpeg-libs >= %{ffmpeg_ver}
-%else
-BuildRequires:	libav >= %{libav_ver}
-%endif
+Requires:	ffmpeg-libs >= %{ffmpeg_ver}
 %endif
 Requires:	orc >= 0.4.16
 Obsoletes:	gstreamer-ffmpeg
+Obsoletes:	gstreamer-real
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -116,11 +110,13 @@ Dokumentacja API do wtyczki GStreamera libav.
 
 %configure \
 	CPPFLAGS="%{rpmcppflags}" \
-	%{?with_system_libav:--with-system-libav} \
+	%{?with_system_ffmpeg:--with-system-libav} \
 	%{?with_vdpau:--with-libav-extra-configure="--enable-vdpau"} \
+	%{?with_gpl:--enable-gpl} \
 	--disable-silent-rules \
 	--disable-static \
 	--with-html-dir=%{_gtkdocdir}
+
 # V=1 is for libav (--disable-silent-rules affects only main gst-libav sources)
 %{__make} \
 	V=1
