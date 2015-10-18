@@ -108,10 +108,14 @@ Dokumentacja API do wtyczki GStreamera libav.
 %{__autoheader}
 %{__automake}
 
+LIBAV_OPTS="%{?with_vdpau:--enable-vdpau}"
+%ifarch x32
+LIBAV_OPTS="$LIBAV_OPTS --disable-asm"
+%endif
 %configure \
 	CPPFLAGS="%{rpmcppflags}" \
 	%{?with_system_ffmpeg:--with-system-libav} \
-	%{?with_vdpau:--with-libav-extra-configure="--enable-vdpau"} \
+	--with-libav-extra-configure="$LIBAV_OPTS" \
 	%{?with_gpl:--enable-gpl} \
 	--disable-silent-rules \
 	--disable-static \
