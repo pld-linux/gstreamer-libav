@@ -6,15 +6,15 @@
 
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
-%define		gst_req_ver	1.6.2
-%define		gstpb_req_ver	1.6.2
-%define		ffmpeg_ver	2.8.3
+%define		gst_req_ver	1.6.3
+%define		gstpb_req_ver	1.6.3
+%define		ffmpeg_ver	2.8.5
 
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.6.2
+Version:	1.6.3
 Release:	1
 %if %{with gpl}
 License:	GPL v2+
@@ -23,7 +23,7 @@ License:	LGPL v2+
 %endif
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	09644a38827d233f53edeac815dd0ec0
+# Source0-md5:	cfe9a06913d4fd4067e9e47f6e05fac2
 Patch0:		link-crystalhd.patch
 URL:		http://gstreamer.net/
 BuildRequires:	autoconf >= 2.69
