@@ -6,15 +6,15 @@
 
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
-%define		gst_req_ver	1.6.3
-%define		gstpb_req_ver	1.6.3
-%define		ffmpeg_ver	2.8.5
+%define		gst_req_ver	1.8.0
+%define		gstpb_req_ver	1.8.0
+%define		ffmpeg_ver	3.0.1
 
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.6.3
+Version:	1.8.1
 Release:	1
 %if %{with gpl}
 License:	GPL v2+
@@ -22,13 +22,14 @@ License:	GPL v2+
 License:	LGPL v2+
 %endif
 Group:		Libraries
-Source0:	http://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	cfe9a06913d4fd4067e9e47f6e05fac2
+Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
+# Source0-md5:	85f1a047606ca9e08493d7b6b42df462
 Patch0:		link-crystalhd.patch
-URL:		http://gstreamer.net/
+URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
 BuildRequires:	bzip2-devel
+BuildRequires:	glib2-devel >= 1:2.40.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
 BuildRequires:	gtk-doc >= 1.12
@@ -55,6 +56,7 @@ BuildRequires:	libvdpau-devel
 BuildRequires:	xorg-lib-libXvMC-devel
 %endif
 %endif
+Requires:	glib2 >= 1:2.40.0
 Requires:	gstreamer >= %{gst_req_ver}
 Requires:	gstreamer-plugins-base >= %{gstpb_req_ver}
 %if %{with system_ffmpeg}
