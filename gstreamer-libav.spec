@@ -15,7 +15,7 @@ Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
 Version:	1.8.1
-Release:	1
+Release:	2
 %if %{with gpl}
 License:	GPL v2+
 %else
@@ -94,6 +94,9 @@ Summary:	API documentation for GStreamer libav plugin
 Summary(pl.UTF-8):	Dokumentacja API do wtyczki GStreamera libav
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for GStreamer libav plugin.
