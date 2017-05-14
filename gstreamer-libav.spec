@@ -6,16 +6,16 @@
 
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
-%define		gst_req_ver	1.8.0
-%define		gstpb_req_ver	1.8.0
-%define		ffmpeg_ver	3.0.1
+%define		gst_req_ver	1.12.0
+%define		gstpb_req_ver	1.12.0
+%define		ffmpeg_ver	3.3
 
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.8.1
-Release:	2
+Version:	1.12.0
+Release:	1
 %if %{with gpl}
 License:	GPL v2+
 %else
@@ -23,12 +23,11 @@ License:	LGPL v2+
 %endif
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	85f1a047606ca9e08493d7b6b42df462
+# Source0-md5:	f9c4593947f8484b237c5d9782939ec3
 Patch0:		link-crystalhd.patch
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
-BuildRequires:	bzip2-devel
 BuildRequires:	glib2-devel >= 1:2.40.0
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
@@ -40,13 +39,14 @@ BuildRequires:	python >= 2.1
 BuildRequires:	rpmbuild(macros) >= 1.470
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-BuildRequires:	xz-devel
 %if %{with system_ffmpeg}
 # libavformat,libavcodec,libavutil,libswscale needed
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
 %else
 # libav dependencies
 BuildRequires:	SDL-devel
+BuildRequires:	bzip2-devel
+BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
 %ifarch %{ix86} %{x8664}
 BuildRequires:	yasm
