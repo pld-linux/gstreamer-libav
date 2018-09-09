@@ -14,8 +14,8 @@
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.12.4
-Release:	2
+Version:	1.14.2
+Release:	1
 %if %{with gpl}
 License:	GPL v2+
 %else
@@ -23,8 +23,8 @@ License:	LGPL v2+
 %endif
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	8a851bf2e475e90a3fdac9506e3e4dbd
-Patch0:		link-crystalhd.patch
+# Source0-md5:	da3d4655268bc6766a261065ca737590
+Patch0:		link.patch
 URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
@@ -46,13 +46,14 @@ BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
 # libav dependencies
 BuildRequires:	SDL-devel
 BuildRequires:	bzip2-devel
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
 %ifarch %{ix86} %{x8664}
 BuildRequires:	yasm
 %endif
-%if %{with vdpau}
 BuildRequires:	libvdpau-devel
+%if %{with vdpau}
 BuildRequires:	xorg-lib-libXvMC-devel
 %endif
 %endif
@@ -106,7 +107,7 @@ Dokumentacja API do wtyczki GStreamera libav.
 
 %prep
 %setup -q -n %{gstname}-%{version}
-%{!?with_system_ffmpeg:%patch0 -p1}
+%patch0 -p1
 
 %build
 %{__libtoolize}
