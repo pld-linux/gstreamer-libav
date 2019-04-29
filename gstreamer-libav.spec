@@ -6,9 +6,9 @@
 
 %define		gstname gst-libav
 %define		gst_major_ver   1.0
-%define		gst_req_ver	1.14.0
-%define		gstpb_req_ver	1.14.0
-%define		ffmpeg_ver	3.3.5
+%define		gst_req_ver	1.14.4
+%define		gstpb_req_ver	1.14.4
+%define		ffmpeg_ver	3.4.2
 
 %include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
@@ -40,21 +40,20 @@ BuildRequires:	rpmbuild(macros) >= 1.470
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 %if %{with system_ffmpeg}
-# libavformat,libavcodec,libavutil,libswscale needed
+# libavformat,libavcodec >= 57,libavutil,libswscale needed
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
 %else
 # libav dependencies
-BuildRequires:	SDL-devel
 BuildRequires:	bzip2-devel
+BuildRequires:	libvdpau-devel
 BuildRequires:	xorg-lib-libX11-devel
+%if %{with vdpau}
+BuildRequires:	xorg-lib-libXvMC-devel
+%endif
 BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
 %ifarch %{ix86} %{x8664}
 BuildRequires:	yasm
-%endif
-BuildRequires:	libvdpau-devel
-%if %{with vdpau}
-BuildRequires:	xorg-lib-libXvMC-devel
 %endif
 %endif
 Requires:	glib2 >= 1:2.40.0
