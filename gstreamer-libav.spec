@@ -4,10 +4,10 @@
 %bcond_without	vdpau		# build libav without VDPAU support
 %bcond_with	system_ffmpeg	# system ffmpeg (note: upstream does not accept bugs with system ffmpeg)
 
-%define		gstname gst-libav
-%define		gst_major_ver   1.0
-%define		gst_req_ver	1.16.0
-%define		gstpb_req_ver	1.16.0
+%define		gstname		gst-libav
+%define		gstmver		1.0
+%define		gst_ver		1.16.0
+%define		gstpb_ver	1.16.0
 %define		ffmpeg_ver	4.1.3
 
 %include	/usr/lib/rpm/macros.gstreamer
@@ -29,8 +29,8 @@ URL:		https://gstreamer.freedesktop.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.14
 BuildRequires:	glib2-devel >= 1:2.40.0
-BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
+BuildRequires:	gstreamer-devel >= %{gst_ver}
+BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_ver}
 BuildRequires:	gtk-doc >= 1.12
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	orc-devel >= 0.4.16
@@ -57,8 +57,8 @@ BuildRequires:	yasm
 %endif
 %endif
 Requires:	glib2 >= 1:2.40.0
-Requires:	gstreamer >= %{gst_req_ver}
-Requires:	gstreamer-plugins-base >= %{gstpb_req_ver}
+Requires:	gstreamer >= %{gst_ver}
+Requires:	gstreamer-plugins-base >= %{gstpb_ver}
 %if %{with system_ffmpeg}
 Requires:	ffmpeg-libs >= %{ffmpeg_ver}
 %endif
@@ -140,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{gst_major_ver}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{gstmver}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -148,9 +148,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgstlibav.so
+%attr(755,root,root) %{_libdir}/gstreamer-%{gstmver}/libgstlibav.so
 # disabled in (upstream) 1.2.0 until someone fixes it
-#%attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgstavscale.so
+#%attr(755,root,root) %{_libdir}/gstreamer-%{gstmver}/libgstavscale.so
 
 %files apidocs
 %defattr(644,root,root,755)
