@@ -10,7 +10,6 @@
 %define		gstpb_ver	1.16.0
 %define		ffmpeg_ver	4.1.3
 
-%include	/usr/lib/rpm/macros.gstreamer
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
