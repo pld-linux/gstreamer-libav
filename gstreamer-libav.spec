@@ -95,9 +95,7 @@ Summary:	API documentation for GStreamer libav plugin
 Summary(pl.UTF-8):	Dokumentacja API do wtyczki GStreamera libav
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for GStreamer libav plugin.
