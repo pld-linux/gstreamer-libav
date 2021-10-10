@@ -63,8 +63,8 @@ Requires:	gstreamer-plugins-base >= %{gstpb_ver}
 Requires:	ffmpeg-libs >= %{ffmpeg_ver}
 %endif
 Requires:	orc >= 0.4.16
-Obsoletes:	gstreamer-ffmpeg
-Obsoletes:	gstreamer-real
+Obsoletes:	gstreamer-ffmpeg < 1
+Obsoletes:	gstreamer-real < 1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		filterout	-flto
