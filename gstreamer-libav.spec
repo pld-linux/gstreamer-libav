@@ -107,6 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README.md
 %attr(755,root,root) %{_libdir}/gstreamer-%{gstmver}/libgstlibav.so
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %{_docdir}/gstreamer-%{gstmver}/libav-doc
+%endif
