@@ -11,12 +11,12 @@
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.22.1
+Version:	1.22.2
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	c898c44220cf8990a886c867249164f1
+# Source0-md5:	b5beb08ad5de445011d4b9135ce6cf71
 URL:		https://gstreamer.freedesktop.org/
 # libavfilter >= 7.16.100, libavformat >= 58.12.100, libavcodec >= 58.18.100, libavutil >= 56.14.100
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
