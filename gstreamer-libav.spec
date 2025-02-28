@@ -11,12 +11,12 @@
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.24.8
+Version:	1.24.12
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	b837f86e94071fa79126bb4ec0f936ea
+# Source0-md5:	20fbf19f67d1b91eaf1279ede7494e9e
 URL:		https://gstreamer.freedesktop.org/
 # libavfilter >= 7.16.100, libavformat >= 58.12.100, libavcodec >= 58.18.100, libavutil >= 56.14.100
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
@@ -28,7 +28,7 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python >= 2.1
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	ffmpeg-libs >= %{ffmpeg_ver}
@@ -78,11 +78,11 @@ Dokumentacja API do wtyczki GStreamera libav.
 %setup -q -n %{gstname}-%{version}
 
 %build
-%meson build \
+%meson \
 	--default-library=shared \
 	%{!?with_apidocs:-Ddoc=disabled}
 
-%ninja_build -C build
+%meson_build
 
 %if %{with apidocs}
 cd build/docs
@@ -92,7 +92,7 @@ LC_ALL=C.UTF-8 hotdoc run --conf-file plugin-libav.json
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with apidocs}
 install -d $RPM_BUILD_ROOT%{_docdir}/gstreamer-%{gstmver}
