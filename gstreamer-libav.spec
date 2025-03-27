@@ -4,26 +4,26 @@
 
 %define		gstname		gst-libav
 %define		gstmver		1.0
-%define		gst_ver		1.24.0
-%define		gstpb_ver	1.24.0
+%define		gst_ver		1.26.0
+%define		gstpb_ver	1.26.0
 %define		ffmpeg_ver	4.4
 
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.24.12
+Version:	1.26.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	20fbf19f67d1b91eaf1279ede7494e9e
+# Source0-md5:	aa1af31b4ea8d4413c9d9feded3d81ea
 URL:		https://gstreamer.freedesktop.org/
 # libavfilter >= 7.16.100, libavformat >= 58.12.100, libavcodec >= 58.18.100, libavutil >= 56.14.100
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
 BuildRequires:	gstreamer-devel >= %{gst_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_ver}
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
-BuildRequires:	meson >= 1.1
+BuildRequires:	meson >= 1.4
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	python >= 2.1
@@ -80,11 +80,14 @@ Dokumentacja API do wtyczki GStreamera libav.
 %build
 %meson \
 	--default-library=shared \
-	%{!?with_apidocs:-Ddoc=disabled}
+	-Ddoc=%{__enabled_disabled apidocs} \
+	-Dtests=disabled
 
 %meson_build
 
 %if %{with apidocs}
+%meson_build build-hotdoc-configs
+
 cd build/docs
 LC_ALL=C.UTF-8 hotdoc run --conf-file plugin-libav.json
 %endif
