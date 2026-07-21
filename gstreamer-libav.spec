@@ -4,22 +4,23 @@
 
 %define		gstname		gst-libav
 %define		gstmver		1.0
-%define		gst_ver		1.26.0
-%define		gstpb_ver	1.26.0
+%define		gst_ver		1.28.0
+%define		gstpb_ver	1.28.0
 %define		ffmpeg_ver	4.4
 
 Summary:	GStreamer Streaming-media framework plug-in using libav
 Summary(pl.UTF-8):	Wtyczka do środowiska obróbki strumieni GStreamer używająca libav
 Name:		gstreamer-libav
-Version:	1.26.8
+Version:	1.28.5
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/gst-libav/%{gstname}-%{version}.tar.xz
-# Source0-md5:	b6c20503f7e010f5f3042cf8e117ecfa
+# Source0-md5:	d3509e3eacdb5097c1853e48e2fcb53c
 URL:		https://gstreamer.freedesktop.org/
-# libavfilter >= 7.16.100, libavformat >= 58.12.100, libavcodec >= 58.18.100, libavutil >= 56.14.100
+# libavfilter >= 7.16.100, libavformat >= 58.12.100, libavcodec >= 58.18.100, libavutil >= 56.14.100; up to ffmpeg 8.0 supported
 BuildRequires:	ffmpeg-devel >= %{ffmpeg_ver}
+BuildRequires:	gcc >= 6:4.7
 BuildRequires:	gstreamer-devel >= %{gst_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_ver}
 %{?with_apidocs:BuildRequires:	hotdoc >= 0.11.0}
@@ -107,8 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README.md
-%attr(755,root,root) %{_libdir}/gstreamer-%{gstmver}/libgstlibav.so
+%doc ChangeLog README.md RELEASE release-notes-1.28.md
+%{_libdir}/gstreamer-%{gstmver}/libgstlibav.so
 
 %if %{with apidocs}
 %files apidocs
